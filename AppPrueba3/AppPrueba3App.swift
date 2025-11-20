@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct AppPrueba3App: App {
+    init () {
+        
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
