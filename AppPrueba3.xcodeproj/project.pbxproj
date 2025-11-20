@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B408C6A32ECFD23600AFC5CE /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B408C6A22ECFD22900AFC5CE /* .gitignore */; };
 		B4BD22C42ECD39AE00402707 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = B4BD22C32ECD39AE00402707 /* FirebaseDatabase */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B408C6A22ECFD22900AFC5CE /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B4BD22762ECD10A700402707 /* AppPrueba3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppPrueba3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -37,6 +39,7 @@
 		B4BD226D2ECD10A700402707 = {
 			isa = PBXGroup;
 			children = (
+				B408C6A22ECFD22900AFC5CE /* .gitignore */,
 				B4BD22782ECD10A700402707 /* AppPrueba3 */,
 				B4BD22772ECD10A700402707 /* Products */,
 			);
@@ -118,6 +121,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B408C6A32ECFD23600AFC5CE /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
