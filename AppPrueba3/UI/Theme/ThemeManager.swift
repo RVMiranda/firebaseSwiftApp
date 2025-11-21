@@ -10,6 +10,8 @@ import SwiftUI
 import Combine
 
 final class ThemeManager: ObservableObject {
+    @EnvironmentObject var theme: ThemeManager
+
     @Published var colors: [String: Color] = [:]
     @Published var typography: [String: Typographystyle] = [:]
 
