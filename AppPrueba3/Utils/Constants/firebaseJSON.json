@@ -1,0 +1,53 @@
+{
+  "theme": {
+    "colors": {
+      "primary": "#5D5FEF",
+      "accent": "#FFB800",
+      "bgBody": "#020626",
+      "bgCard": "#1B2141",
+      "textMain": "#FFFFFF",
+      "textSecondary": "#A9B0C6"
+    },
+    "typography": {
+      "title":   { "fontName": "SFProRounded-Bold", "size": 24, "weight": "bold" },
+      "subtitle":{ "fontName": "SFProRounded-Medium", "size": 18, "weight": "medium" },
+      "body":    { "fontName": "SFProText-Regular", "size": 14, "weight": "regular" }
+    }
+  },
+  "screens": {
+    "home": {
+      "colors": {
+        "background": "bgBody",
+        "card": "primary"
+      },
+      "texts": {
+        "title": "All Cards",
+        "latestActivity": "Transactions"
+      }
+    },
+    "analytics": {
+      "colors": {
+        "background": "bgBody",
+        "barIncome": "primary",
+        "barOutcome": "accent"
+      },
+      "texts": {
+        "title": "Statistics",
+        "income": "Total Income",
+        "outcome": "Total Outcome"
+      }
+    },
+    "wallet": {
+      "colors": {
+        "background": "bgBody",
+        "card": "primary"
+      },
+      "texts": {
+        "title": "Total Balance",
+        "favorites": "Favorites",
+        "allTransactions": "All Transactions"
+      }
+    }
+  }
+}
+
