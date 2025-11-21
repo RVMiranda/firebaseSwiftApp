@@ -16,9 +16,22 @@
 		B4BD22762ECD10A700402707 /* AppPrueba3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppPrueba3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B408C7232ED11BFA00AFC5CE /* Exceptions for "AppPrueba3" folder in "AppPrueba3" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Utils/Constants/local_icons.json,
+			);
+			target = B4BD22752ECD10A700402707 /* AppPrueba3 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B4BD22782ECD10A700402707 /* AppPrueba3 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B408C7232ED11BFA00AFC5CE /* Exceptions for "AppPrueba3" folder in "AppPrueba3" target */,
+			);
 			path = AppPrueba3;
 			sourceTree = "<group>";
 		};

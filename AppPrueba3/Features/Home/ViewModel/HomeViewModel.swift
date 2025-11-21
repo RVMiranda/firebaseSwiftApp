@@ -25,8 +25,8 @@ final class HomeViewModel: ObservableObject {
         ]
         
         self.transactions = [
-            TransactionModel(title: "Amazon", subTitle: "Hace 4 horas", amount: 99, iconName: "amazon", isPositive: false),
-            TransactionModel(title: "De Diego H", subTitle: "Ayer", amount: 150, iconName: "profile_pic", isPositive: true)
+            TransactionModel(title: "Spotify", subTitle: "Hace 4 horas", amount: 99, iconName: "spotify", isPositive: false),
+            TransactionModel(title: "De Diego H", subTitle: "Ayer", amount: 150, iconName: "darren", isPositive: true)
         ]
     }
 }

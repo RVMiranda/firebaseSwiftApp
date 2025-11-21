@@ -25,9 +25,9 @@ final class WalletViewModel: ObservableObject {
     private func loadData() {
 
         favorites = [
-            WalletFavorite(name: "Diego H.", avatar: "avatar1"),
-            WalletFavorite(name: "Eduardo P.", avatar: "avatar2"),
-            WalletFavorite(name: "Pablo E.", avatar: "avatar3")
+            WalletFavorite(name: "Diego H.", avatar: "darren"),
+            WalletFavorite(name: "Eduardo P.", avatar: "david"),
+            WalletFavorite(name: "Bety R.", avatar: "jane")
         ]
 
         actions = [
@@ -37,8 +37,8 @@ final class WalletViewModel: ObservableObject {
         ]
 
         transactions = [
-            WalletTransaction(name: "Diego H.", time: "Hace 4 horas", amount: -50, avatar: "avatar3"),
-            WalletTransaction(name: "Uber", time: "Hace 7 horas", amount: -18.4, avatar: "uber")
+            WalletTransaction(name: "Diego H.", time: "Hace 4 horas", amount: -50, avatar: "darren"),
+            WalletTransaction(name: "Spotify", time: "Hace 7 horas", amount: -18.4, avatar: "spotify")
         ]
     }
 

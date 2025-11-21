@@ -6,39 +6,55 @@
 //
 
 import SwiftUI
+import Combine
 
 struct TransactionRowView: View {
     let transaction: TransactionModel
+    @EnvironmentObject var icons: IconManager
 
-        var body: some View {
 
-            HStack(spacing: 16) {
+    var body: some View {
 
+        HStack(spacing: 16) {
+
+            // ====== ICON ======
+            ZStack {
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.white.opacity(0.20))
+                    .frame(width: 52, height: 52)
+                
                 Image(transaction.iconName)
                     .resizable()
-                    .frame(width: 48, height: 48)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(transaction.title)
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(.white)
-
-                    Text(transaction.subTitle)
-                        .font(.system(size: 14))
-                        .foregroundColor(Color.white.opacity(0.6))
-                }
-
-                Spacer()
-
-                Text(transaction.isPositive ? "+$\(Double(transaction.amount))" : "-$\(transaction.amount)")
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundColor(transaction.isPositive ? .green : .red)
+                    .scaledToFit()
             }
-            .padding(16)
-            .background(Color.white.opacity(0.05))
-            .cornerRadius(20)
-        }
-}
 
+            // ====== TITLES ======
+            VStack(alignment: .leading, spacing: 4) {
+                Text(transaction.title)
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.white)
+
+                Text(transaction.subTitle)
+                    .font(.system(size: 14))
+                    .foregroundColor(.white.opacity(0.6))
+            }
+
+            Spacer()
+
+            // ====== AMOUNT ======
+            Text(formattedAmount)
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundColor(transaction.isPositive ? .green : .red)
+        }
+        .padding(.vertical, 8)
+        // ❌ NO BACKGROUND AQUÍ
+    }
+
+    private var formattedAmount: String {
+        let amount = Double(transaction.amount)
+        return transaction.isPositive ?
+            String(format: "+$%.2f", amount) :
+            String(format: "-$%.2f", amount)
+    }
+}
 

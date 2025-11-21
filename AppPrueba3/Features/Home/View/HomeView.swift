@@ -8,54 +8,42 @@
 import SwiftUI
 
 struct HomeView: View {
-
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var router: ViewRouter
     @StateObject var viewModel = HomeViewModel()
     @State private var isMenuOpen = false
-    @State private var currentScreen: menuDestination = .home
     @State private var notificationsEnabled = true
+    @EnvironmentObject var icons: IconManager
 
     var body: some View {
-
         let bg = theme.home?.colors?["background"]
             .flatMap { theme.colors[$0] } ?? Color(hex: "#020626")
 
         ZStack {
-
-                    // ===== MAIN CONTENT =====
-                    ScrollView(showsIndicators: false) {
-                        VStack(alignment: .leading, spacing: 30) {
-
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 30) {
                             headerSection
                             titleRow
                             CardCarouselView(cards: viewModel.cards)
                             transactionsSection
-                        }
-                        .padding(.horizontal)
-                        .padding(.top, 10)
-                    }
-                    .background(bg.ignoresSafeArea())
-                    .offset(x: isMenuOpen ? 230 : 0)
-                    .scaleEffect(isMenuOpen ? 0.90 : 1)
-                    .animation(.spring(response: 0.35, dampingFraction: 0.85), value: isMenuOpen)
-
-                    // ===== SIDE MENU =====
-                    MenuView(
-                        isOpen: $isMenuOpen,
-                        currentView: $currentScreen
-                    )
-                    .environmentObject(router)
                 }
+                .padding(.horizontal)
+                .padding(.top, 10)
             }
+            .background(bg.ignoresSafeArea())
+            .offset(x: isMenuOpen ? 230 : 0)
+            .scaleEffect(isMenuOpen ? 0.90 : 1)
+            .animation(.spring(response: 0.35, dampingFraction: 0.85), value: isMenuOpen)
+            
+            MenuView(isOpen: $isMenuOpen, currentView: .constant(.home))
+        }
+    }
 }
 
 extension HomeView {
     var titleRow: some View {
         HStack(alignment: .center) {
-
             VStack(alignment: .leading, spacing: 4) {
-
                 Text("Información")
                     .font(.system(size: 22, weight: .medium))
                     .foregroundColor(.white.opacity(0.7))
@@ -72,7 +60,7 @@ extension HomeView {
             }
             Spacer()
             Button {
-                // acción para nueva tarjeta
+
             } label: {
                 ZStack {
                     Circle()
@@ -128,9 +116,8 @@ extension HomeView {
                     }
                 }
 
-                Image("profile_pic")
+                Image(icons.avatars.first?.image_name ?? "darren")
                     .resizable()
-                    .scaledToFill()
                     .frame(width: 42, height: 42)
                     .clipShape(Circle())
             }
@@ -142,25 +129,35 @@ extension HomeView {
 extension HomeView {
     private var transactionsSection: some View {
 
-        VStack(alignment: .leading, spacing: 16) {
-            HStack{
-                Text("Actividad Reciente")
-                    .font(.system(size: 22, weight: .medium))
-                    .foregroundColor(Color.white.opacity(0.7))
+        VStack(alignment: .leading, spacing: 22) {
+            HStack {
+                Text("Latest Activity")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.white.opacity(0.7))
+                
                 Spacer()
+                
                 Image(systemName: "arrow.up.right")
-                    .font(.system(size: 30))
+                    .font(.system(size: 22, weight: .semibold))
                     .foregroundColor(.white.opacity(0.8))
             }
-            Text(theme.home?.texts?["latestActivity"] ?? "Tarjetas")
-                .font(.system(size: 40, weight: .bold))
+            
+            Text(theme.home?.texts?["latestActivity"] ?? "Transactions")
+                .font(.system(size: 34, weight: .bold))
                 .foregroundColor(.white)
-
-            TransactionsListView(transactions: viewModel.transactions)
+            
+            VStack(spacing: 0) {
+                TransactionsListView(transactions: viewModel.transactions)
+                    .environmentObject(icons)
+            }
+            .cornerRadius(35)
         }
-        .background(Color.white.opacity(0.08))
-        .cornerRadius(20)
-        
+        .padding(24)
+        .background(
+            Color.white.opacity(0.10)
+        )
+        .cornerRadius(35)
+        .padding(.top, 14)
     }
 }
 
@@ -168,5 +165,6 @@ extension HomeView {
     HomeView()
         .environmentObject(ThemeManager(provider: FirebaseTokenProvider()))
         .environmentObject(ViewRouter())
+        .environmentObject(IconManager())
         .preferredColorScheme(.dark)
 }

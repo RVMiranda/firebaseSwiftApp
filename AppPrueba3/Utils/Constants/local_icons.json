@@ -1,0 +1,83 @@
+{
+  "icons": {
+    "avatars": [
+      {
+        "id": "david_h",
+        "name": "David H.",
+        "image_name": "Avatars/david"
+      },
+      {
+        "id": "jane_w",
+        "name": "Jane W.",
+        "image_name": "Avatars/jane"
+      },
+      {
+        "id": "darren_f",
+        "name": "Darren F.",
+        "image_name": "Avatars/darren"
+      },
+      {
+        "id": "karen_d",
+        "name": "Karen D.",
+        "image_name": "Avatars/karen"
+      }
+    ],
+
+    "apps": [
+      {
+        "id": "amazon",
+        "name": "Amazon",
+        "image_name": "Icons/amazon"
+      },
+      {
+        "id": "uber",
+        "name": "Uber",
+        "image_name": "Icons/uber"
+      },
+      {
+        "id": "apple_pay",
+        "name": "Apple Pay",
+        "image_name": "Icons/applepay"
+      },
+      {
+        "id": "spotify",
+        "name": "Spotify",
+        "image_name": "Icons/spotify"
+      },
+      {
+        "id": "ebay",
+        "name": "Ebay",
+        "image_name": "Icons/ebay"
+      },
+      {
+        "id": "google",
+        "name": "Google",
+        "image_name": "Icons/google"
+      },
+      {
+        "id": "samsung",
+        "name": "Samsung",
+        "image_name": "Icons/samsung"
+      }
+    ],
+
+    "categories": [
+      {
+        "id": "food",
+        "name": "Food",
+        "image_name": "Categories/food"
+      },
+      {
+        "id": "transport",
+        "name": "Transport",
+        "image_name": "Categories/transport"
+      },
+      {
+        "id": "shopping",
+        "name": "Shopping",
+        "image_name": "Categories/shopping"
+      }
+    ]
+  }
+}
+
