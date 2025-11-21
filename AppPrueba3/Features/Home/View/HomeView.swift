@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
 
     @EnvironmentObject var theme: ThemeManager
+    @EnvironmentObject var router: ViewRouter
     @StateObject var viewModel = HomeViewModel()
     @State private var isMenuOpen = false
     @State private var currentScreen: menuDestination = .home
@@ -45,6 +46,7 @@ struct HomeView: View {
                         isOpen: $isMenuOpen,
                         currentView: $currentScreen
                     )
+                    .environmentObject(router)
                 }
             }
 }

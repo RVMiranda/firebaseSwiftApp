@@ -15,11 +15,13 @@ struct AppPrueba3App: App {
     }
 
     @StateObject var theme = ThemeManager(provider: FirebaseTokenProvider())
+    @StateObject var router = ViewRouter()
 
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            RootView()
                 .environmentObject(theme)
+                .environmentObject(router)
         }
     }
 }
