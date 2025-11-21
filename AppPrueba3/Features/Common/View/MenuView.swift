@@ -35,7 +35,7 @@ struct MenuView: View {
                                             isOpen = false
                                         }
                                     } label: {
-                                        HStack(spacing: 12) {
+                                        HStack(spacing: 8) {
                                             Image(systemName: item.icon)
                                                 .font(.system(size: 20))
                                             Text(item.title)
@@ -48,11 +48,11 @@ struct MenuView: View {
 
                                 Spacer()
                             }
-                            .padding(.top, 60)
-                            .padding(.horizontal, 20)
-                            .frame(width: 260)
+                            .padding(.top, 40)
+                            .padding(.horizontal, 10)
+                            .frame(width: 200)
                             .background(Color(hex: "#020626"))
-                            .offset(x: isOpen ? 0 : -260)
+                            .offset(x: isOpen ? 0 : -200)
                             .animation(.easeInOut, value: isOpen)
 
                             Spacer()
