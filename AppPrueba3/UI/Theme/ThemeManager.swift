@@ -9,60 +9,43 @@ import Foundation
 import SwiftUI
 import Combine
 
-// Protocol that provides remote design tokens/config updates
-protocol DesignTokenService {
-    func observeConfig(_ handler: @escaping (Result<AppConfig, Error>) -> Void)
-}
-
 final class ThemeManager: ObservableObject {
-    // Color tokens available by key
     @Published var colors: [String: Color] = [:]
     @Published var typography: [String: Typographystyle] = [:]
 
-    @Published var homeConfig: ScreenConfig?
-    @Published var analyticsConfig: ScreenConfig?
-    @Published var walletConfig: ScreenConfig?
+    @Published var home: ScreenConfig?
+    @Published var analytics: ScreenConfig?
+    @Published var wallet: ScreenConfig?
 
-    private let designTokenService: DesignTokenService
+    private let provider: TokenProvider
 
-    init(designTokenService: DesignTokenService) {
-        self.designTokenService = designTokenService
-
-        // Default colors to avoid empty UI before remote config arrives
-        self.colors = [
-            "primary": Color(hex: "#5D5FEF"),
-            "accent": Color(hex: "#FFB800"),
-            "background": Color(hex: "#FFFFFF"),
-            "textPrimary": Color(hex: "#111111")
-        ]
-
-        listenRemoteConfig()
+    init(provider: TokenProvider) {
+        self.provider = provider
+        listen()
     }
 
-    private func listenRemoteConfig() {
-        designTokenService.observeConfig { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let config):
-                    self?.apply(config: config)
-                case .failure:
-                    break
+    private func listen() {
+
+            provider.observeTokens { [weak self] result in
+                DispatchQueue.main.async {
+
+                    switch result {
+                    case .success(let config):
+
+                        print("🔥 ThemeManager.apply -> Title:", config.screens.home.texts?["title"] ?? "nil")
+
+                        self?.colors = config.theme.colors.mapValues { Color(hex: $0) }
+                        self?.typography = config.theme.typography
+
+                        self?.home      = config.screens.home
+                        self?.analytics = config.screens.analytics
+                        self?.wallet    = config.screens.wallet
+
+                    case .failure(let error):
+                        print("❌ ThemeManager ERROR:", error)
+                    }
                 }
             }
         }
-    }
-
-    private func apply(config: AppConfig) {
-        // Map the theme colors into SwiftUI Color values
-        colors = config.theme.colors.reduce(into: [:]) { dict, pair in
-            dict[pair.key] = Color(hex: pair.value)
-        }
-
-        typography = config.theme.typography
-
-        homeConfig      = config.screens.home
-        analyticsConfig = config.screens.analytics
-        walletConfig    = config.screens.wallet
-    }
 }
 

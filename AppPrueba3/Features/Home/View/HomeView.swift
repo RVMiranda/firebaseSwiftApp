@@ -8,53 +8,23 @@
 import SwiftUI
 
 struct HomeView: View {
+
     @EnvironmentObject var theme: ThemeManager
 
     var body: some View {
-        let config = theme.homeConfig
-        let bgColor = (config?.colors?["background"]).flatMap { theme.colors[$0] } ?? theme.colors["primary"] ?? Color.blue
+
+        let bg = theme.home?.colors?["background"]
+            .flatMap { theme.colors[$0] } ?? .blue
+
+        let title = theme.home?.texts?["title"] ?? "NO TITLE?"
 
         ZStack {
-            bgColor
-                .ignoresSafeArea()
+            bg.ignoresSafeArea()
 
-            VStack(alignment: .leading, spacing: 16) {
-                Text(config?.texts?["title"] ?? "All Cards")
-                    .font(.system(size: 32, weight: .bold))
-            }
-            .padding()
+            Text(title)
+                .font(.system(size: 30, weight: .bold))
+                .foregroundColor(.white)
         }
     }
 }
 
-#Preview {
-    HomeView()
-        .environmentObject(
-            ThemeManager(designTokenService: MockDesignTokenService())
-        )
-}
-
-// Simple mock for previews
-final class MockDesignTokenService: DesignTokenService {
-    func observeConfig(_ handler: @escaping (Result<AppConfig, Error>) -> Void) {
-        let theme = ThemeConfig(
-            colors: [
-                "primary": "#5D5FEF",
-                "background": "#FFFFFF",
-                "textPrimary": "#111111"
-            ],
-            typography: [:]
-        )
-        let screens = ScreenList(
-            home: ScreenConfig(
-                colors: ["background": "primary"],
-                fonts: nil,
-                texts: ["title": "All Cards"]
-            ),
-            analytics: ScreenConfig(colors: nil, fonts: nil, texts: nil),
-            wallet: ScreenConfig(colors: nil, fonts: nil, texts: nil)
-        )
-        let config = AppConfig(theme: theme, screens: screens)
-        handler(.success(config))
-    }
-}

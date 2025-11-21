@@ -14,14 +14,12 @@ struct AppPrueba3App: App {
         FirebaseApp.configure()
     }
 
-    @StateObject private var themeManager = ThemeManager(
-        designTokenService: FirebaseDesignTokenService()
-    )
+    @StateObject var theme = ThemeManager(provider: FirebaseTokenProvider())
 
     var body: some Scene {
         WindowGroup {
             HomeView()
-                .environmentObject(themeManager)
+                .environmentObject(theme)
         }
     }
 }
