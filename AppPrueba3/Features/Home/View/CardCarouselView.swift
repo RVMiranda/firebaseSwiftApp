@@ -18,6 +18,7 @@ struct CardCarouselView: View {
                         CardItemView(card: card)
                     }
                 }
+                .frame(height: 180)
                 .padding(.vertical, 5)
             }
         }

@@ -28,9 +28,8 @@ struct HomeView: View {
                         VStack(alignment: .leading, spacing: 30) {
 
                             headerSection
-
+                            titleRow
                             CardCarouselView(cards: viewModel.cards)
-
                             transactionsSection
                         }
                         .padding(.horizontal)
@@ -52,88 +51,122 @@ struct HomeView: View {
 }
 
 extension HomeView {
-    private var headerSection: some View {
+    var titleRow: some View {
+        HStack(alignment: .center) {
 
-        VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
 
-            HStack {
-                Button {
-                    withAnimation {
-                        isMenuOpen.toggle()
-                    }
-                } label: {
-                    Image(systemName: "line.horizontal.3")
-                        .font(.title2)
+                Text("Información")
+                    .font(.system(size: 22, weight: .medium))
+                    .foregroundColor(.white.opacity(0.7))
+
+                HStack(spacing: 4) {
+                    Text(theme.home?.texts?["title"] ?? "Tarjetas")
+                        .font(.system(size: 50, weight: .bold))
                         .foregroundColor(.white)
-                }
 
-                Spacer()
-
-                HStack(spacing: 12) {
-                    Button {
-                        withAnimation(.spring()) {
-                            notificationsEnabled.toggle()
-                        }
-                    } label: {
-
-                        ZStack {
-
-                            Circle()
-                                .fill(Color.white.opacity(0.15))
-                                .frame(width: 36, height: 36)
-
-                            Image(systemName: notificationsEnabled ? "bell.fill" : "bell")
-                                .foregroundColor(notificationsEnabled ? .yellow : .white)
-                                .animation(.easeInOut, value: notificationsEnabled)
-
-                            if notificationsEnabled {
-                                Circle()
-                                    .fill(Color.red)
-                                    .frame(width: 10, height: 10)
-                                    .offset(x: 12, y: -12)
-                                    .transition(.scale.combined(with: .opacity))
-                            }
-                        }
-                    }
-                    Image("profile_pic")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 38, height: 38)
-                        .clipShape(Circle())
+                    Text("(\(viewModel.cards.count))")
+                        .font(.system(size: 50, weight: .bold))
+                        .foregroundColor(.white.opacity(0.35))
                 }
             }
+            Spacer()
+            Button {
+                // acción para nueva tarjeta
+            } label: {
+                ZStack {
+                    Circle()
+                        .fill(Color.white.opacity(0.18))
+                        .frame(width: 60, height: 60)
 
-            Text("Información")
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(Color.white.opacity(0.7))
+                    Image(systemName: "plus")
+                        .font(.system(size: 32, weight: .bold))
+                        .foregroundColor(.white)
+                }
+                
+            }
+            .padding(10)
+            .offset(y: 15)
+        }
+    }
+}
 
-            HStack {
-                Text("Tarjetas")
-                    .font(.system(size: 34, weight: .bold))
+
+extension HomeView {
+    var headerSection: some View {
+        HStack {
+            Button {
+                withAnimation { isMenuOpen.toggle() }
+            } label: {
+                Image(systemName: "line.horizontal.3")
+                    .font(.title2)
                     .foregroundColor(.white)
+            }
 
-                Text("(2)")
-                    .font(.system(size: 34, weight: .bold))
-                    .foregroundColor(Color.white.opacity(0.3))
+            Spacer()
+
+            HStack(spacing: 14) {
+
+                Button {
+                    withAnimation { notificationsEnabled.toggle() }
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(Color.white.opacity(0.12))
+                            .frame(width: 40, height: 40)
+
+                        Image(systemName: notificationsEnabled ? "bell.fill" : "bell")
+                            .foregroundColor(notificationsEnabled ? .yellow : .white)
+
+                        if notificationsEnabled {
+                            Circle()
+                                .fill(.red)
+                                .frame(width: 10, height: 10)
+                                .offset(x: 12, y: -12)
+                                .transition(.scale)
+                        }
+                    }
+                }
+
+                Image("profile_pic")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 42, height: 42)
+                    .clipShape(Circle())
             }
         }
     }
 }
 
+
 extension HomeView {
     private var transactionsSection: some View {
 
         VStack(alignment: .leading, spacing: 16) {
-
-            Text("Actividad Reciente")
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(Color.white.opacity(0.7))
-
-            Text("Transacciones")
-                .font(.system(size: 30, weight: .bold))
+            HStack{
+                Text("Actividad Reciente")
+                    .font(.system(size: 22, weight: .medium))
+                    .foregroundColor(Color.white.opacity(0.7))
+                Spacer()
+                Image(systemName: "arrow.up.right")
+                    .font(.system(size: 30))
+                    .foregroundColor(.white.opacity(0.8))
+            }
+            Text(theme.home?.texts?["latestActivity"] ?? "Tarjetas")
+                .font(.system(size: 40, weight: .bold))
                 .foregroundColor(.white)
 
             TransactionsListView(transactions: viewModel.transactions)
         }
+        .background(Color.white.opacity(0.08))
+        .cornerRadius(20)
+        
     }
+}
+
+#Preview {
+    HomeView()
+        .environmentObject(ThemeManager(provider: FirebaseTokenProvider()))
+        .environmentObject(ViewRouter())
+        .preferredColorScheme(.dark)
 }
