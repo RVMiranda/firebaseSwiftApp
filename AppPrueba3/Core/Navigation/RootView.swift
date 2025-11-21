@@ -29,8 +29,7 @@ struct RootView: View {
                 case .wallet:
                     WalletView()
                 case .analytics:
-                    Text("Analytics (placeholder)")
-                        .foregroundColor(.white)
+                    AnalyticsView()
                 case .settings:
                     Text("Settings (placeholder)")
                         .foregroundColor(.white)
