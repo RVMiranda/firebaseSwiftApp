@@ -1,42 +1,16 @@
 //
-//  HomeView.swift
+//  FirebaseDesignTokenService.swift
 //  AppPrueba3
 //
 //  Created by Rafael Miranda on 20/11/25.
 //
 
-import SwiftUI
+import Foundation
 
-struct HomeView: View {
-    @EnvironmentObject var theme: ThemeManager
-
-    var body: some View {
-        let config = theme.homeConfig
-        let bgColor = (config?.colors?["background"]).flatMap { theme.colors[$0] } ?? theme.colors["primary"] ?? Color.blue
-
-        ZStack {
-            bgColor
-                .ignoresSafeArea()
-
-            VStack(alignment: .leading, spacing: 16) {
-                Text(config?.texts?["title"] ?? "All Cards")
-                    .font(.system(size: 32, weight: .bold))
-            }
-            .padding()
-        }
-    }
-}
-
-#Preview {
-    HomeView()
-        .environmentObject(
-            ThemeManager(designTokenService: MockDesignTokenService())
-        )
-}
-
-// Simple mock for previews
-final class MockDesignTokenService: DesignTokenService {
+/*final class FirebaseDesignTokenService: DesignTokenService {
     func observeConfig(_ handler: @escaping (Result<AppConfig, Error>) -> Void) {
+        // TODO: Implement Firebase Remote Config or Firestore listener here.
+        // For now, emit a basic default config once.
         let theme = ThemeConfig(
             colors: [
                 "primary": "#5D5FEF",
@@ -58,3 +32,4 @@ final class MockDesignTokenService: DesignTokenService {
         handler(.success(config))
     }
 }
+*/

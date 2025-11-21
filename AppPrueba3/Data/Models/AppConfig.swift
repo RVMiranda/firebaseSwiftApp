@@ -9,7 +9,7 @@ import Foundation
 
 struct AppConfig: Codable {
     let theme: ThemeConfig
-    let screens: ScreenConfig
+    let screens: ScreenList
 }
 
 struct ThemeConfig: Codable {
