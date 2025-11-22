@@ -20,8 +20,6 @@ struct RootView: View {
             .flatMap { theme.colors[$0] } ?? Color(hex: "#020626")
 
         ZStack {
-
-            // CONTENIDO PRINCIPAL (cambia según currentScreen)
             Group {
                 switch router.currentView {
                 case .home:
@@ -41,7 +39,6 @@ struct RootView: View {
             .animation(.spring(response: 0.35, dampingFraction: 0.85),
                        value: router.isMenuOpen)
 
-            // MENÚ LATERAL (siempre por encima)
             MenuView(isOpen: $router.isMenuOpen, currentView: $router.currentView)
                 .environmentObject(router)
 

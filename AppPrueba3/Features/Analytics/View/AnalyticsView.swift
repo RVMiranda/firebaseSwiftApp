@@ -17,7 +17,6 @@ struct AnalyticsView: View {
     var body: some View {
         
         ZStack {
-            
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 25) {
                     
@@ -36,7 +35,6 @@ struct AnalyticsView: View {
             .scaleEffect(isMenuOpen ? 0.92 : 1)
             .animation(.spring(response: 0.35, dampingFraction: 0.85), value: isMenuOpen)
             
-            // Menú lateral
             MenuView(
                 isOpen: $isMenuOpen,
                 currentView: .constant(.analytics)
@@ -49,8 +47,6 @@ extension AnalyticsView {
     
     var header: some View {
         HStack {
-            
-            // Botón menú lateral
             Button {
                 withAnimation {
                     isMenuOpen.toggle()
@@ -63,7 +59,6 @@ extension AnalyticsView {
             
             Spacer()
             
-            // Selector periodo
             Menu {
                 Button("Monthly") { viewModel.selectedPeriod = "Monthly" }
                 Button("Weekly")  { viewModel.selectedPeriod = "Weekly"  }
@@ -81,7 +76,6 @@ extension AnalyticsView {
                 .cornerRadius(14)
             }
             
-            // Botón extra
             Button(action: {}) {
                 Image(systemName: "ellipsis")
                     .rotationEffect(.degrees(90))

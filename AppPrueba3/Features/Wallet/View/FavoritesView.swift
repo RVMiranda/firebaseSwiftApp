@@ -21,9 +21,6 @@ struct FavoritesView: View {
 
                     Spacer()
 
-                    Text("Latest")
-                        .foregroundColor(.white.opacity(0.5))
-                        .font(.system(size: 18, weight: .medium))
                 }
 
                 ScrollView(.horizontal, showsIndicators: false) {

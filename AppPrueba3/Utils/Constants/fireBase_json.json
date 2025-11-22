@@ -1,0 +1,96 @@
+{
+  "theme": {
+    "colors": {
+      "primary": "#5D5FEF",
+      "accent": "#FFB800",
+      "success": "#31D067",
+      "danger": "#FF4F4F",
+
+      "bgBody": "#020626",
+      "bgCard": "#1B2141",
+      "bgSecondary": "#11162C",
+
+      "textMain": "#FFFFFF",
+      "textSecondary": "#A9B0C6",
+      "textMuted": "#FFFFFF66"
+    },
+
+    "typography": {
+      "title":     { "font": "SFProRounded-Bold",   "size": 28, "weight": "bold" },
+      "subtitle":  { "font": "SFProRounded-Medium", "size": 20, "weight": "medium" },
+      "section":   { "font": "SFProRounded-Medium", "size": 18, "weight": "semibold" },
+      "body":      { "font": "SFProText-Regular",   "size": 15, "weight": "regular" },
+      "small":     { "font": "SFProText-Regular",   "size": 13, "weight": "regular" }
+    },
+
+    "radius": {
+      "small": 8,
+      "medium": 16,
+      "large": 28,
+      "extra": 40
+    }
+  },
+
+  "screens": {
+    "home": {
+      "colors": {
+        "background": "bgBody",
+        "card": "primary",
+        "headerBackground": "bgSecondary"
+      },
+      "texts": {
+        "sectionInfo": "Información",
+        "title": "Tarjetas",
+        "cardsCountSuffix": "",
+        "latestActivity": "Actividad Reciente",
+        "transactionsTitle": "Transacciones"
+      },
+      "layout": {
+        "cardHeight": 190,
+        "cardRadius": 24,
+        "transactionRadius": 30
+      }
+    },
+
+    "wallet": {
+      "colors": {
+        "background": "bgBody",
+        "card": "primary",
+        "buttonPrimary": "accent",
+        "buttonSecondary": "bgCard"
+      },
+      "texts": {
+        "title": "Total Balance",
+        "favorites": "Favorites",
+        "latest": "Latest",
+        "tabs": ["Transacciones", "Recibido", "Enviado"]
+      },
+      "layout": {
+        "favoritesSpacing": 20,
+        "avatarSize": 56,
+        "overlapOffset": 22,
+        "buttonsRadius": 28
+      }
+    },
+
+    "analytics": {
+      "colors": {
+        "background": "bgBody",
+        "incomeColor": "primary",
+        "outcomeColor": "accent",
+        "categoryCard": "bgCard"
+      },
+      "texts": {
+        "title": "Statistics",
+        "income": "Total Income",
+        "outcome": "Total Outcome",
+        "categoriesTitle": "Categories"
+      },
+      "layout": {
+        "barRadius": 24,
+        "categoryRadius": 22
+      }
+    }
+  }
+}
+

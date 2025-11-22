@@ -16,7 +16,6 @@ struct MenuView: View {
     
     var body: some View {
         ZStack(alignment: .leading) {
-
             if isOpen {
                 Color.black.opacity(0.35)
                     .ignoresSafeArea()
@@ -24,40 +23,38 @@ struct MenuView: View {
             }
 
             HStack {
-                            VStack(alignment: .leading, spacing: 30) {
-
-                                // 🔥 LISTA AUTO-GENERADA DEL VIEWMODEL
-                                ForEach(viewModel.menuItems) { item in
-                                    Button {
-                                        withAnimation {
-                                            router.currentView = item.destination
-                                            currentView = item.destination
-                                            isOpen = false
-                                        }
-                                    } label: {
-                                        HStack(spacing: 8) {
-                                            Image(systemName: item.icon)
-                                                .font(.system(size: 20))
-                                            Text(item.title)
-                                                .font(.system(size: 20, weight: .medium))
-                                        }
-                                        .foregroundColor(.white)
-                                        .padding(.vertical, 5)
-                                    }
-                                }
-
-                                Spacer()
+                VStack(alignment: .leading, spacing: 30) {
+                    ForEach(viewModel.menuItems) { item in
+                        Button {
+                            withAnimation {
+                                router.currentView = item.destination
+                                currentView = item.destination
+                                isOpen = false
                             }
-                            .padding(.top, 40)
-                            .padding(.horizontal, 10)
-                            .frame(width: 200)
-                            .background(Color(hex: "#020626"))
-                            .offset(x: isOpen ? 0 : -200)
-                            .animation(.easeInOut, value: isOpen)
-
-                            Spacer()
+                        } label: {
+                            HStack(spacing: 8) {
+                                Image(systemName: item.icon)
+                                .font(.system(size: 20))
+                                Text(item.title)
+                                .font(.system(size: 20, weight: .medium))
+                            }
+                            .foregroundColor(.white)
+                            .padding(.vertical, 5)
                         }
+                    }
+
+                    Spacer()
                 }
+                .padding(.top, 40)
+                .padding(.horizontal, 10)
+                .frame(width: 200)
+                .background(Color(hex: "#020626"))
+                .offset(x: isOpen ? 0 : -200)
+                .animation(.easeInOut, value: isOpen)
+
+                Spacer()
+            }
+        }
             
     }
 }

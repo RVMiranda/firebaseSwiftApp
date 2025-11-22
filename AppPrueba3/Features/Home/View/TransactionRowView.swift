@@ -16,8 +16,6 @@ struct TransactionRowView: View {
     var body: some View {
 
         HStack(spacing: 16) {
-
-            // ====== ICON ======
             ZStack {
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color.white.opacity(0.20))
@@ -27,8 +25,6 @@ struct TransactionRowView: View {
                     .resizable()
                     .scaledToFit()
             }
-
-            // ====== TITLES ======
             VStack(alignment: .leading, spacing: 4) {
                 Text(transaction.title)
                     .font(.system(size: 18, weight: .medium))
@@ -41,13 +37,11 @@ struct TransactionRowView: View {
 
             Spacer()
 
-            // ====== AMOUNT ======
             Text(formattedAmount)
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(transaction.isPositive ? .green : .red)
         }
         .padding(.vertical, 8)
-        // ❌ NO BACKGROUND AQUÍ
     }
 
     private var formattedAmount: String {

@@ -14,17 +14,17 @@ final class FirebaseTokenProvider: TokenProvider {
 
     func observeTokens(_ handler: @escaping (Result<AppConfig, Error>) -> Void) {
 
-        print("👀 FirebaseTokenProvider -> Observing root...")
+        print("FirebaseTokenProvider -> Observing root...")
 
         ref.observe(.value) { snapshot in
 
             if !snapshot.exists() {
-                print("⚠️ Snapshot DOES NOT exist")
+                print("Snapshot DOES NOT exist")
                 return
             }
 
             guard let value = snapshot.value else {
-                print("⚠️ Snapshot has no value")
+                print("Snapshot has no value")
                 return
             }
 
@@ -32,13 +32,13 @@ final class FirebaseTokenProvider: TokenProvider {
                 let data = try JSONSerialization.data(withJSONObject: value)
                 let config = try JSONDecoder().decode(AppConfig.self, from: data)
 
-                print("✅ FirebaseTokenProvider -> Received config:")
-                print("   Home title:", config.screens.home.texts?["title"] ?? "nil")
+                print("FirebaseTokenProvider -> Received config:")
+                print("Home title:", config.screens.home.texts?["title"] ?? "nil")
 
                 handler(.success(config))
 
             } catch {
-                print("❌ ERROR decoding AppConfig:", error)
+                print("ERROR decoding AppConfig:", error)
                 handler(.failure(error))
             }
         }
