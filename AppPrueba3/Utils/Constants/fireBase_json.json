@@ -3,8 +3,8 @@
     "colors": {
       "primary": "#5D5FEF",
       "accent": "#FFB800",
-      "success": "#31D067",
       "danger": "#FF4F4F",
+      "success": "#31D067",
 
       "bgBody": "#020626",
       "bgCard": "#1B2141",
@@ -16,11 +16,26 @@
     },
 
     "typography": {
-      "title":     { "font": "SFProRounded-Bold",   "size": 28, "weight": "bold" },
-      "subtitle":  { "font": "SFProRounded-Medium", "size": 20, "weight": "medium" },
-      "section":   { "font": "SFProRounded-Medium", "size": 18, "weight": "semibold" },
-      "body":      { "font": "SFProText-Regular",   "size": 15, "weight": "regular" },
-      "small":     { "font": "SFProText-Regular",   "size": 13, "weight": "regular" }
+      "title": {
+        "fontName": "SF-Bold",
+        "fontSize": "32",
+        "weight": "bold"
+      },
+      "subtitle": {
+        "fontName": "SF-Semibold",
+        "fontSize": "20",
+        "weight": "semibold"
+      },
+      "section": {
+        "fontName": "SF-Medium",
+        "fontSize": "18",
+        "weight": "medium"
+      },
+      "body": {
+        "fontName": "SF-Regular",
+        "fontSize": "15",
+        "weight": "regular"
+      }
     },
 
     "radius": {
@@ -28,6 +43,19 @@
       "medium": 16,
       "large": 28,
       "extra": 40
+    },
+
+    "fonts": {
+      "title": {
+        "font": "SF-Bold",
+        "size": 32,
+        "weight": "bold"
+      },
+      "body": {
+        "font": "SF-Regular",
+        "size": 15,
+        "weight": "regular"
+      }
     }
   },
 
@@ -36,40 +64,42 @@
       "colors": {
         "background": "bgBody",
         "card": "primary",
-        "headerBackground": "bgSecondary"
+        "header": "bgSecondary"
       },
+
+      "fonts": {
+        "title": "title",
+        "subtitle": "subtitle",
+        "body": "body"
+      },
+
       "texts": {
         "sectionInfo": "Información",
         "title": "Tarjetas",
-        "cardsCountSuffix": "",
         "latestActivity": "Actividad Reciente",
-        "transactionsTitle": "Transacciones"
-      },
-      "layout": {
-        "cardHeight": 190,
-        "cardRadius": 24,
-        "transactionRadius": 30
+        "transactions": "Transacciones"
       }
     },
 
     "wallet": {
       "colors": {
         "background": "bgBody",
-        "card": "primary",
         "buttonPrimary": "accent",
         "buttonSecondary": "bgCard"
       },
+
+      "fonts": {
+        "title": "title",
+        "body": "body"
+      },
+
       "texts": {
         "title": "Total Balance",
         "favorites": "Favorites",
         "latest": "Latest",
-        "tabs": ["Transacciones", "Recibido", "Enviado"]
-      },
-      "layout": {
-        "favoritesSpacing": 20,
-        "avatarSize": 56,
-        "overlapOffset": 22,
-        "buttonsRadius": 28
+        "tabs_transacciones": "Transacciones",
+        "tabs_recibido": "Recibido",
+        "tabs_enviado": "Enviado"
       }
     },
 
@@ -80,15 +110,17 @@
         "outcomeColor": "accent",
         "categoryCard": "bgCard"
       },
+
+      "fonts": {
+        "title": "title",
+        "body": "body"
+      },
+
       "texts": {
         "title": "Statistics",
         "income": "Total Income",
         "outcome": "Total Outcome",
         "categoriesTitle": "Categories"
-      },
-      "layout": {
-        "barRadius": 24,
-        "categoryRadius": 22
       }
     }
   }

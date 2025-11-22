@@ -8,61 +8,66 @@
 import SwiftUI
 
 struct AnalyticsView: View {
-    
+
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var router: ViewRouter
     @StateObject var viewModel = AnalyticsViewModel()
-    @State private var isMenuOpen = false
-    
+
     var body: some View {
-        
+
+        let bgColor =
+            theme.analytics?.colors?["background"]
+                .flatMap { theme.colors[$0] }
+            ?? Color(hex: "#020626")
+
         ZStack {
+
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 25) {
-                    
-                    header
-                    titles
-                    barChart
-                    incomeOutcome
-                    categoriesHeader
-                    categoriesList
-                    
+
+                VStack(alignment: .leading, spacing: 28) {
+
+                    headerSection
+                    titlesSection
+                    BarChartView(bars: viewModel.bars)
+                        .environmentObject(theme)
+
+                    incomesSection
+                    categoriesSection
                 }
                 .padding()
             }
-            .background(theme.colors["bgBody"].ignoresSafeArea())
-            .offset(x: isMenuOpen ? 230 : 0)
-            .scaleEffect(isMenuOpen ? 0.92 : 1)
-            .animation(.spring(response: 0.35, dampingFraction: 0.85), value: isMenuOpen)
-            
-            MenuView(
-                isOpen: $isMenuOpen,
-                currentView: .constant(.analytics)
-            )
+            .background(bgColor.ignoresSafeArea())
+            .offset(x: router.isMenuOpen ? 230 : 0)
+            .scaleEffect(router.isMenuOpen ? 0.90 : 1)
+            .animation(.spring(response: 0.35, dampingFraction: 0.85),
+                       value: router.isMenuOpen)
+
+            MenuView(isOpen: $router.isMenuOpen,
+                     currentView: $router.currentView)
         }
     }
 }
 
 extension AnalyticsView {
-    
-    var header: some View {
+
+    var headerSection: some View {
+
         HStack {
+
             Button {
-                withAnimation {
-                    isMenuOpen.toggle()
-                }
+                withAnimation { router.isMenuOpen.toggle() }
             } label: {
                 Image(systemName: "line.3.horizontal")
                     .font(.title2)
                     .foregroundColor(.white)
             }
-            
+
             Spacer()
-            
+
             Menu {
                 Button("Monthly") { viewModel.selectedPeriod = "Monthly" }
-                Button("Weekly")  { viewModel.selectedPeriod = "Weekly"  }
-                Button("Yearly")  { viewModel.selectedPeriod = "Yearly"  }
+                Button("Weekly") { viewModel.selectedPeriod = "Weekly" }
+                Button("Yearly") { viewModel.selectedPeriod = "Yearly" }
             } label: {
                 HStack {
                     Text(viewModel.selectedPeriod)
@@ -70,12 +75,12 @@ extension AnalyticsView {
                     Image(systemName: "chevron.down")
                         .foregroundColor(.black)
                 }
-                .padding(.horizontal, 18)
+                .padding(.horizontal, 16)
                 .padding(.vertical, 8)
                 .background(Color(hex: "#E4E7FF"))
-                .cornerRadius(14)
+                .cornerRadius(theme.corner("medium"))
             }
-            
+
             Button(action: {}) {
                 Image(systemName: "ellipsis")
                     .rotationEffect(.degrees(90))
@@ -84,93 +89,75 @@ extension AnalyticsView {
             }
         }
     }
-}
 
-extension AnalyticsView {
-    
-    var titles: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text("Debit Card")
-                .foregroundColor(.white)
+    var titlesSection: some View {
+        VStack(alignment: .leading, spacing: 4) {
+
+            Text(theme.analytics?.texts?["cardType"] ?? "Debit Card")
+                .foregroundColor(.white.opacity(0.8))
                 .font(.system(size: 18))
-            
+
             Text(theme.analytics?.texts?["title"] ?? "Statistics")
                 .foregroundColor(.white)
                 .font(.system(size: 32, weight: .bold))
         }
     }
-}
 
-
-extension AnalyticsView {
-    
-    var barChart: some View {
-        BarChartView(bars: viewModel.bars)
-            .environmentObject(theme)
-    }
-}
-
-extension AnalyticsView {
-    
-    var incomeOutcome: some View {
+    var incomesSection: some View {
         HStack {
-            
+
             VStack(alignment: .leading, spacing: 4) {
-                Text(theme.analytics?.texts?["income"] ?? "Total Income")
-                    .foregroundColor(.white)
-                
+                Text(theme.analytics?.texts?["income"] ?? "Income")
+                    .foregroundColor(.white.opacity(0.8))
+
                 Text("$2,927.50")
-                    .font(.system(size: 30, weight: .bold))
                     .foregroundColor(.white)
-                
+                    .font(.system(size: 30, weight: .bold))
+
                 Label("12.7% last week", systemImage: "arrow.up.right")
                     .font(.system(size: 14))
                     .foregroundColor(.blue)
             }
-            
+
             Spacer()
-            
+
             VStack(alignment: .leading, spacing: 4) {
-                Text(theme.analytics?.texts?["outcome"] ?? "Total Outcome")
-                    .foregroundColor(.white)
-                
+                Text(theme.analytics?.texts?["outcome"] ?? "Outcome")
+                    .foregroundColor(.white.opacity(0.8))
+
                 Text("$528.20")
-                    .font(.system(size: 30, weight: .bold))
                     .foregroundColor(.white)
-                
+                    .font(.system(size: 30, weight: .bold))
+
                 Label("8.5% last week", systemImage: "arrow.down.right")
                     .font(.system(size: 14))
                     .foregroundColor(.red)
             }
         }
     }
-}
 
-extension AnalyticsView {
-    
-    var categoriesHeader: some View {
-        HStack {
-            Text("Categories")
-                .font(.system(size: 18, weight: .medium))
-                .foregroundColor(.white)
-            
-            Spacer()
-            
-            Text("View All")
-                .font(.system(size: 14))
-                .foregroundColor(.blue)
-        }
-    }
-    
-    var categoriesList: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 16) {
-                ForEach(viewModel.categories) { item in
-                    CategoryCardView(item: item)
-                        .environmentObject(theme)
+    var categoriesSection: some View {
+
+        VStack(alignment: .leading, spacing: 16) {
+
+            HStack {
+                Text("Categories")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.white)
+                Spacer()
+                Text("View All")
+                    .font(.system(size: 14))
+                    .foregroundColor(.blue)
+            }
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 16) {
+                    ForEach(viewModel.categories) { item in
+                        CategoryCardView(item: item)
+                            .environmentObject(theme)
+                    }
                 }
             }
         }
     }
 }
-

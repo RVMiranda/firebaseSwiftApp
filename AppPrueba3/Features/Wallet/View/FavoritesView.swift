@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FavoritesView: View {
+    @EnvironmentObject var theme: ThemeManager
     let favorites: [WalletFavorite]
 
         var body: some View {
@@ -15,7 +16,7 @@ struct FavoritesView: View {
             VStack(alignment: .leading, spacing: 10) {
 
                 HStack {
-                    Text("Favorites")
+                    Text(theme.wallet?.texts?["favorites"] ?? "Favoritos")
                         .foregroundColor(.white)
                         .font(.system(size: 18, weight: .medium))
 

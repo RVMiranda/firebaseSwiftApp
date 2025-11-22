@@ -16,18 +16,37 @@ struct ThemeConfig: Codable {
     let colors: [String: String]
     let typography: [String: Typographystyle]
 
-    enum CodingKeys: String, CodingKey { case colors, typography }
+    let radius: RadiusConfig?
+    let fonts: [String: TypographyConfig]?
 
-    init(colors: [String: String] = [:], typography: [String: Typographystyle] = [:]) {
+    enum CodingKeys: String, CodingKey {
+        case colors
+        case typography
+        case radius
+        case fonts
+    }
+
+    init(
+        colors: [String: String] = [:],
+        typography: [String: Typographystyle] = [:],
+        radius: RadiusConfig? = nil,
+        fonts: [String: TypographyConfig]? = nil
+    ) {
         self.colors = colors
         self.typography = typography
+        self.radius = radius
+        self.fonts = fonts
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+
         let colors = try container.decodeIfPresent([String: String].self, forKey: .colors) ?? [:]
         let typography = try container.decodeIfPresent([String: Typographystyle].self, forKey: .typography) ?? [:]
-        self.init(colors: colors, typography: typography)
+        let radius = try container.decodeIfPresent(RadiusConfig.self, forKey: .radius)
+        let fonts = try container.decodeIfPresent([String: TypographyConfig].self, forKey: .fonts)
+
+        self.init(colors: colors, typography: typography, radius: radius, fonts: fonts)
     }
 }
 
@@ -80,5 +99,43 @@ struct ScreenList: Codable {
         let analytics = try container.decodeIfPresent(ScreenConfig.self, forKey: .analytics) ?? ScreenConfig(colors: nil, fonts: nil, texts: nil)
         let wallet = try container.decodeIfPresent(ScreenConfig.self, forKey: .wallet) ?? ScreenConfig(colors: nil, fonts: nil, texts: nil)
         self.init(home: home, analytics: analytics, wallet: wallet)
+    }
+}
+
+struct RadiusConfig: Codable {
+    let small: CGFloat
+    let medium: CGFloat
+    let large: CGFloat
+    let extra: CGFloat
+
+    init(small: CGFloat = 8, medium: CGFloat = 16, large: CGFloat = 28, extra: CGFloat = 40) {
+        self.small = small
+        self.medium = medium
+        self.large = large
+        self.extra = extra
+    }
+}
+
+struct TypographyConfig: Codable {
+    let font: String
+    let size: CGFloat
+    let weight: String
+
+    enum CodingKeys: String, CodingKey { case font, size, weight }
+
+    init(font: String = "System", size: CGFloat = 14, weight: String = "regular") {
+        self.font = font
+        self.size = size
+        self.weight = weight
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        let font = try container.decodeIfPresent(String.self, forKey: .font) ?? "System"
+        let size = try container.decodeIfPresent(CGFloat.self, forKey: .size) ?? 14
+        let weight = try container.decodeIfPresent(String.self, forKey: .weight) ?? "regular"
+
+        self.init(font: font, size: size, weight: weight)
     }
 }
